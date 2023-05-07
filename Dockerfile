@@ -10,7 +10,7 @@ RUN apt-get update \
     && echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip \
     && unzip ngrok.zip \
-    && echo "./ngrok config add-authtoken ${AUTH_TOKEN} &&" >>/1.sh \
+    && echo "./ngrok config add-authtoken ${AUTH_TOKEN} &&" >>/docker.sh \
     && echo "./ngrok tcp 22 &>/dev/null &" >>/docker.sh \
     && mkdir /run/sshd \
     && echo '/usr/sbin/sshd -D' >>/docker.sh \
