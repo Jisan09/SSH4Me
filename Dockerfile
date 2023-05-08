@@ -6,7 +6,7 @@ ENV PASSWORD=$PASSWORD
 ENV AUTH_TOKEN=$AUTH_TOKEN
 
 RUN apt-get update \
-    && apt-get install -y debconf-utils ssh wget unzip \
+    && apt-get install -y debconf-utils ssh sudo wget unzip \
     && echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections \
     && wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip \
     && unzip ngrok.zip \
