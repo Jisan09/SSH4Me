@@ -2,35 +2,77 @@
 
 SSH4Me is a Docker container that provides secure root access to development environments via an Ngrok tunnel. With configuration for root login and common development ports, SSH4Me makes it easy to access your environment securely from anywhere, including platforms like Railway.
 
-## Usage
+## Requirements
 
-### _For now only tested in railway.app_
+To use SSH4Me, you will need:
 
-### To use SSH4Me, you'll need to follow these steps:
+- A GitHub account to fork the SSH4Me repository
+- An ngrok account to get an authentication token
+- Docker installed on your local machine if you want to run SSH4Me locally
 
-1. Fork the SSH4Me repository on GitHub.
-2. Sign up for an ngrok account at [https://dashboard.ngrok.com/signup](https://dashboard.ngrok.com/signup).
-3. Get your ngrok authentication token from [https://dashboard.ngrok.com/get-started/your-authtoken](https://dashboard.ngrok.com/get-started/your-authtoken).
+## Installation and Setup
 
-   <figure><img src="https://graph.org/file/a540090cbde42cb121f81.jpg" alt="ngrok dashboard" width="720"></figure>
+- ### Fork the SSH4Me Repository on GitHub
 
-4. Go to [https://railway.app/new](https://railway.app/new) and build the Docker container with the following environment variables:
-    * `AUTH_TOKEN`: Your ngrok authentication token.
-    * `PASSWORD`: Password for SSH access (optional, default is `rootuser`).
+   The first step is to fork the SSH4Me repository on GitHub. To do this  click the "Fork" button in the top-right corner of the page.
+
+- ### Sign up for an ngrok Account and Get Your Authentication Token
+   - Sign up for an ngrok account at [https://dashboard.ngrok.com/signup](https://dashboard.ngrok.com/signup).
+   - Get your ngrok authentication token from [https://dashboard.ngrok.com/get-started/your-authtoken](https://dashboard.ngrok.com/get-started/your-authtoken).
+
+      <figure><img src="https://graph.org/file/a540090cbde42cb121f81.jpg" alt="ngrok dashboard" width="720"></figure>
+    > **You will need this token when you build the Docker container on Railway or locally.**
+
+<details>
+  <summary><h3>〣 Deploy on Railway</h3></summary>
+   
+- Go to [https://railway.app/new](https://railway.app/new) and build the Docker container with the following environment variables:
+    - `AUTH_TOKEN`: Your ngrok authentication token.
+    - `PASSWORD`: Password for SSH access (optional, default is `rootuser`).
 
    <figure><img src="https://graph.org/file/e68689ddfbdb12cdc37d8.jpg" alt="Railway app buildL" width="720"></figure>
 
+</details>
 
-5. After the build is complete, go to [https://dashboard.ngrok.com/cloud-edge/endpoints](https://dashboard.ngrok.com/cloud-edge/endpoints) and copy the TCP URL.
+<details>
+  <summary><h3>〣 Run Locally</h3></summary>
 
-   <figure><img src="https://graph.org/file/7ce318fc4dc19f83f5571.jpg" alt="ngrok TCP URL" width="720"></figure>
+#### Install Docker
 
-6. Format the TCP URL to get the SSH URL:
-    * TCP URL: `tcp://8.tcp.ngrok.io:13644`
-    * SSH URL: `ssh root@8.tcp.ngrok.io -p 13644`
-7. Connect to the SSH URL using your password (if set) and access your development environment.
+First, you need to install Docker on your local machine. You can download the appropriate version of Docker for your operating system from the [Docker website](https://www.docker.com/products/docker-desktop).
 
-   <figure><img src="https://graph.org/file/7ce6294bddd644cd462c2.jpg" alt="SSH connection" width="720"></figure>
+#### Clone the SSH4Me Repository
+
+- Open a terminal window on your local machine.
+
+- Clone the SSH4Me repository by running the following command:
+
+   ```
+   git clone https://github.com/Jisan09/SSH4Me
+   ```
+
+#### Build and Run the Docker Container
+
+- Navigate to the `ssh4me` directory by running the following command:
+
+   ```
+   cd ssh4me
+   ```
+
+- Build the Docker container by running the following command:
+
+   ```
+   docker build -t ssh4me .
+   ```
+
+- Run the Docker container by running the following command:
+
+   ```
+   docker run -e AUTH_TOKEN=<your-ngrok-auth-token> -e PASSWORD=<your-password> ssh4me
+   ```
+</details>
+   
+ > ***Wait for the build to complete. Once it's done, you should see your ssh & password in log.***
 
 ## Contributing
 
