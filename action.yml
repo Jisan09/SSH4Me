@@ -18,6 +18,8 @@ runs:
 
     - name: 'Run Docker container'
       shell: bash
+      timeout-minutes: 340
+      continue-on-error: true
       run: docker run docker.io/library/ssh4me
 
 branding:
