@@ -76,7 +76,30 @@ First, you need to install Docker on your local machine. You can download the ap
   <summary><h3>〣 Run with Github Workflow</h3></summary>
 <b><i>NOTE :- This method isn't for making userbot, it just for light work. This will work only for 6hr then will terminate.</i></b>
 
-- After forking the repository go to the repository **`settings > secrets and variables > action > new repository secret`** and add the following environment variables:
+- Create a new workflow file (`builder.yml`) inside `.github/workflows/` folder of your repository and copy paste the below conent. **Or you can just fork the SSH4Me Repository.**
+
+
+
+  ```yml
+   name: 'Run SSH4Me'
+   on:
+   workflow_dispatch:
+
+   jobs:
+   build-and-run:
+      runs-on: ubuntu-latest
+      steps:
+         - name: Checkout repository
+         uses: actions/checkout@v2
+
+         - name: Run SSH4Me Action
+         uses: Jisan09/SSH4Me@main
+         env:
+            AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+            PASSWORD: ${{ secrets.PASSWORD }}
+  ```
+
+- Now go to the repository **`settings > secrets and variables > action > new repository secret`** and add the following environment variables:
     - `AUTH_TOKEN`: Your ngrok authentication token.
     - `PASSWORD`: Password for SSH access.
 
