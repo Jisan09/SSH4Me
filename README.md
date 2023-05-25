@@ -24,7 +24,7 @@ To use SSH4Me, you will need:
     > **You will need this token when you build the Docker container on Railway or locally.**
 
 <details>
-  <summary><h3>〣 Deploy on Railway</h3></summary>
+  <summary><h3>〣 Run with Railway</h3></summary>
    
 - Go to [https://railway.app/new](https://railway.app/new) and build the Docker container with the following environment variables:
     - `AUTH_TOKEN`: Your ngrok authentication token.
@@ -48,7 +48,7 @@ First, you need to install Docker on your local machine. You can download the ap
 - Clone the SSH4Me repository by running the following command:
 
    ```
-   git clone https://github.com/Jisan09/SSH4Me
+   git clone https://github.com/Jisan09/ssh4me
    ```
 
 #### Build and Run the Docker Container
@@ -62,14 +62,28 @@ First, you need to install Docker on your local machine. You can download the ap
 - Build the Docker container by running the following command:
 
    ```
-   docker build -t ssh4me .
+   docker build -t ssh4me --build-arg AUTH_TOKEN=AUTH_TOKEN --build-arg PASSWORD=PASSWORD .
    ```
 
 - Run the Docker container by running the following command:
 
    ```
-   docker run -e AUTH_TOKEN=<your-ngrok-auth-token> -e PASSWORD=<your-password> ssh4me
+   docker run ssh4me
    ```
+</details>
+
+<details>
+  <summary><h3>〣 Run with Github Workflow</h3></summary>
+<b><i>NOTE :- This method isn't for making userbot, it just for light work. This will work only for 6hr then will terminate.</i></b>
+
+- After forking the repository go to the repository **`settings > secrets and variables > action > new repository secret`** and add the following environment variables:
+    - `AUTH_TOKEN`: Your ngrok authentication token.
+    - `PASSWORD`: Password for SSH access.
+
+   <figure><img src="https://graph.org/file/6cdd1dbc67096a35df91e.jpg" width="720"></figure>
+- Now go to **action** tab and run the workflow
+   <figure><img src="https://graph.org/file/2a2b09614d4ab60b911b4.jpg" width="720"></figure>
+
 </details>
    
  > ***Wait for the build to complete. Once it's done, you should see your ssh & password in log.***
