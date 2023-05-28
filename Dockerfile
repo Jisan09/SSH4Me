@@ -1,4 +1,3 @@
-# Using: catub/core:bullseye for --> https://github.com/TgCatUB/catuserbot
 # You can change the base image to any other image you want.
 FROM catub/core:bullseye
 
