@@ -74,7 +74,7 @@ First, you need to install Docker on your local machine. You can download the ap
 
 <details>
   <summary><h3>〣 Run with Github Workflow</h3></summary>
-<b><i>NOTE :- This method isn't for making userbot, it just for light work. This will work only for 6hr then will terminate.</i></b>
+<b><i>NOTE :- This method isn't for making bot, it just for light work. This will work only for 6hr then will terminate.</i></b>
 
 - Create a new workflow file (`builder.yml`) inside `.github/workflows/` folder of your repository and copy paste the below conent. **Or you can just fork the SSH4Me Repository.**
 
