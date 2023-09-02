@@ -1,18 +1,19 @@
-# You can change the base image to any other image you want.
-FROM parrotsec/core:rolling
+FROM catub/core:bullseye
 
-MAINTAINER qeeqbox
-
-ENV DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update && apt-get install -y parrot-tools-full
-Run apt-get install -y --no-install-recommends wget unzip ssh
 ARG AUTH_TOKEN
 ARG PASSWORD=rootuser
 
 # Install packages and set locale
+RUN apt-get update \
+    && apt-get install -y locales nano ssh sudo python3 curl wget \
+    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
+    && rm -rf /var/lib/apt/lists/*
 
+RUN useradd -m -s /bin/bash -G sudo reconx
 # Configure SSH tunnel using ngrok
+ENV DEBIAN_FRONTEND=noninteractive \
+    LANG=en_US.utf8
+
 RUN wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip \
     && unzip ngrok.zip \
     && rm /ngrok.zip \
@@ -25,7 +26,9 @@ RUN wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux
     && echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config \
     && echo root:${PASSWORD}|chpasswd \
     && chmod 755 /docker.sh
-
-EXPOSE 80 8888 22 53 8080 443 5130-5135 3306 7860
-CMD ["/bin/bash", "/docker.sh"]
+COPY entrypoint.sh .
+RUN chmod +x entrypoint.sh
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 ENTRYPOINT ["./entrypoint.sh"]
+EXPOSE 80 22 53 9050 3389 9050 8888 8080 443 5130-5135 3306 7860
+CMD ["/bin/bash", "/docker.sh"]
