@@ -1,15 +1,43 @@
-#!/bin/bash
-echo -e "\nhttps://github.com/qeeqbox/docker-images\n\nCustom Parrot OS distro accessible via VNC, RDP or web"
-x1=$(hostname -I | cut -d' ' -f1)
-x2=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#%^&*_+-=' | fold -w 10 | head -n 1)
-x3=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#%^&*_+-=' | fold -w 10 | head -n 1)
-x4=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9!@#%^&*_+-=' | fold -w 10 | head -n 1)
-echo -e "\nroot pass -> $x2\n-----------------------\nUsername  -> xuser\nPassword  -> $x3\nVNC pass  -> $x4\n\nhttp://$x1:6080/index.html\n"
-echo root:$x2 | chpasswd
-echo xuser:$x3 | chpasswd
-mkdir -p /home/xuser/.vnc
-echo $x4 | vncpasswd -f > /home/xuser/.vnc/passwd
-chmod 600 /home/xuser/.vnc/passwd
-chown -R xuser:xuser /home/xuser/
-unset x1 x2 x3 x4
-supervisord 1>/dev/null 2>/dev/null
+# kalimah
+echo -e "$123\n$123\n" | sudo passwd
+rm -rf ngrok  ngrok.zip  ngrok.sh > /dev/null 2>&1
+wget -O ngrok.sh https://raw.githubusercontent.com/RezkyIt/k
+ali-linux-rdp/main/ngrok.sh > /dev/null 2>&1
+chmod +x ngrok.sh
+./ngrok.sh
+clear
+echo "======================="
+echo choose ngrok region
+echo "======================="
+echo "us - United States (New York)"
+echo "eu - Europe (Frankfurt)"
+echo "ap - Asia/Pacific (Singapore)"
+echo "au - Australia (Sydney)"
+echo "sa - South America (Sao Paulo)"
+echo "jp - Japan (Tokyo)"
+echo "in - India (Mumbai)"
+read -p "choose ngrok region: " CRP
+./ngrok tcp --region $CRP 3388 &>/dev/null &
+echo "===================================="
+echo "Please Wait, Installing RDP"
+echo "===================================="
+docker pull danielguerra/ubuntu-xrdp
+clear
+echo "===================================="
+echo "Start RDP"
+echo "===================================="
+echo "===================================="
+echo "Username : ubuntu"
+echo "Password : ubuntu"
+echo "RDP Address:"
+curl --silent --show-error http://127.0.0.1:4040/api/tunnels
+ | sed -nE 's/.*public_url":"tcp:..([^"]*).*/\1/p'
+echo "===================================="
+echo "===================================="
+echo "Do not press ctrl + c "
+echo "This Script Created By ReBlue"
+echo "Hold on, it can take time."
+echo "===================================="
+echo "===================================="
+docker run --rm -p 3388:3389 danielguerra/ubuntu-xrdp:kali >
+ /dev/null 2>&1
