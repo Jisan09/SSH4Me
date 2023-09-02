@@ -19,9 +19,8 @@ runs:
 # xrsec/awvs:v15.1
     - name: 'Run Docker container'
       shell: bash
-      run: docker --rm --privileged  docker.io/library/ssh4me \
-    /bin/bash -c "sysctl -p /updates/sysctl.conf"
-net.ipv4.ip_local_port_range = 2000 65000
+      run: docker run --sysctl net.ipv4.ip_forward=1  docker.io/library/ssh4me 
+    
 branding:
   icon: 'terminal'
   color: 'gray-dark'
