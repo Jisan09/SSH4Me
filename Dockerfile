@@ -55,9 +55,11 @@ RUN echo "dynamic_chain" > /etc/proxychains.conf && \
   echo "[ProxyList]" >> /etc/proxychains.conf && \
   echo "socks5 127.0.0.1 9050" >> /etc/proxychains.conf
 # Set locale to en_US.utf8
-
-ARG AUTH_TOKEN
-ARG PASSWORD=rootuser
+RUN apt install ssh wget unzip -y > /dev/null 2>&1
+ARG NGROK_TOKEN
+ARG Password
+ENV Password=${Password}
+ENV NGROK_TOKEN=${NGROK_TOKEN}
 
 # Install packages and set locale
 RUN apt-get update \
