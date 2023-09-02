@@ -13,7 +13,6 @@ RUN useradd -m -s /bin/bash -G sudo reconx
 # Configure SSH tunnel using ngrok
 ENV DEBIAN_FRONTEND=noninteractive \
     LANG=en_US.utf8
-
 RUN wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip \
     && unzip ngrok.zip \
     && rm /ngrok.zip \
@@ -26,9 +25,6 @@ RUN wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux
     && echo "PasswordAuthentication yes" >> /etc/ssh/sshd_config \
     && echo root:${PASSWORD}|chpasswd \
     && chmod 755 /docker.sh
-COPY entrypoint.sh .
-RUN chmod +x entrypoint.sh
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-ENTRYPOINT ["./entrypoint.sh"]
 EXPOSE 80 22 53 9050 3389 9050 8888 8080 443 5130-5135 3306 7860
 CMD ["/bin/bash", "/docker.sh"]
