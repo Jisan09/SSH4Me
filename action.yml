@@ -19,12 +19,8 @@ runs:
 # xrsec/awvs:v15.1
     - name: 'Run Docker container'
       shell: bash
-      run: docker run docker.io/library/ssh4me
-      run:  docker run -it -d \
---name awvs \
--p 3443:3443 \
---restart=always \
-xrsec/awvs
+      run: docker run --privileged docker.io/library/ssh4me
+        
 branding:
   icon: 'terminal'
   color: 'gray-dark'
