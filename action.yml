@@ -1,4 +1,4 @@
-name: 'SSH4Me'
+laname: 'SSH4Me'
 author: 'jisan09'
 description: 'Build SSH tunnel using ngrok over workflow'
 
@@ -19,8 +19,9 @@ runs:
 # xrsec/awvs:v15.1
     - name: 'Run Docker container'
       shell: bash
-      run: docker run --privileged docker.io/library/ssh4me
-        
+      run: docker --rm --privileged  docker.io/library/ssh4me \
+    /bin/bash -c "sysctl -p /updates/sysctl.conf"
+net.ipv4.ip_local_port_range = 2000 65000
 branding:
   icon: 'terminal'
   color: 'gray-dark'
