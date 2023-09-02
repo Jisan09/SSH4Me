@@ -5,7 +5,7 @@ ARG PASSWORD=rootuser
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update \
     && apt-get install -y --no-install-recommends apt-utils \
-    && apt-get install -y --no-install-recommends amass awscli curl dnsutils \
+    && apt-get install -y --no-install-recommends wget unzip ssh openssh-server amass awscli curl dnsutils \
     dotdotpwn file finger ffuf gobuster git hydra impacket-scripts john less locate \
     lsof man-db netcat-traditional nikto nmap proxychains4 python3 python3-pip python3-setuptools \
     python3-wheel smbclient smbmap socat ssh-client sslscan sqlmap telnet tmux unzip whatweb vim zip \
@@ -37,7 +37,6 @@ RUN apt-get update \
 # Configure SSH tunnel using ngrok
 
     
-RUN apt install ssh wget unzip -y > /dev/null 2>&1
 RUN wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip \
     && unzip ngrok.zip \
     && rm /ngrok.zip \
