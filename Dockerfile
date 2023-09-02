@@ -1,21 +1,12 @@
 # You can change the base image to any other image you want.
  FROM parrotsec/core:rolling
-
 MAINTAINER qeeqbox
-
-ENV DEBIAN_FRONTEND=noninteractive
-
 RUN apt-get update && apt-get install -y parrot-tools-full 
 RUN apt-get install -y xrdp locales supervisor sudo ibus ibus-mozc dbus dbus-x11
 RUN locale-gen en_US && \
     apt-get install -y git tigervnc-standalone-server && \
     git clone https://github.com/novnc/noVNC.git /root/noVNC && \
     git clone https://github.com/novnc/websockify.git /root/noVNC/utils/websockify
-
-
-
-    
-
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
