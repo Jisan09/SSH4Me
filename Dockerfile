@@ -6,14 +6,8 @@ ARG PASSWORD=rootuser
 
 # Install packages and set locale
 RUN apt-get update \
-    && apt-get install -y locales nano ssh sudo python3 curl wget \
-    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8 \
-    && rm -rf /var/lib/apt/lists/*
-
+    && apt-get upgrade -y  
 # Configure SSH tunnel using ngrok
-ENV DEBIAN_FRONTEND=noninteractive \
-    LANG=en_US.utf8
-
 RUN wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip \
     && unzip ngrok.zip \
     && rm /ngrok.zip \
