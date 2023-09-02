@@ -1,13 +1,13 @@
 # You can change the base image to any other image you want.
 FROM parrotsec/core:rolling
-MAINTAINER qeeqbox
 ARG AUTH_TOKEN
 ARG PASSWORD=rootuser
 
 # Install packages and set locale
 RUN apt-get update \
     && apt-get upgrade -y 
-RUN apt-get install ssh curl unzip wget -y
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends wget unzip ssh
 # Configure SSH tunnel using ngrok
 RUN wget -O ngrok.zip https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip \
     && unzip ngrok.zip \
